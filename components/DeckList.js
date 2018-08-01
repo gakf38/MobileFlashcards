@@ -1,6 +1,11 @@
 // React Imports
 import React, { Component } from 'react'
+
+// React Native Imports 
 import { Text, View, ScrollView, FlatList, StyleSheet } from 'react-native'
+
+// Style Imports
+import { DeckListStyles } from '../utils/styles'
 
 class DeckList extends Component {
 
