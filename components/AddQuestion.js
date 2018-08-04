@@ -27,7 +27,7 @@ class AddQuestion extends Component {
 
 		// TODO: Trigger ADD QUESTION action
 
-		// TODO: Navigate to Home
+		// TODO: Navigate to Deck Details
 
 	}
 
