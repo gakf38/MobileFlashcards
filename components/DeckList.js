@@ -2,19 +2,28 @@
 import React, { Component } from 'react'
 
 // React Native Imports 
-import { Text, View, ScrollView, FlatList, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 
 // Style Imports
 import { DeckListStyles } from '../utils/styles'
 
 class DeckList extends Component {
 
+	toDeckDetails = () => {
+
+		// TODO: Navigation to Deck Details
+
+	}
+
 	renderDeckItem = ({ item }) => {
 		return (
-			<View style={styles.deck}>
+			<TouchableOpacity 
+				style={styles.deck}
+				onPress={this.toDeckDetails}
+			>
 				<Text>{item.title}</Text>
 				<Text>{item.questions.length}</Text>
-			</View>
+			</TouchableOpacity>
 		)
 	}
 
