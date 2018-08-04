@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 // React Native Imports
 import { Text, View, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 
+// React Navigation Imports
+import { NavigationActions } from 'react-navigation'
+
 class AddQuestion extends Component {
 
 	state = {
@@ -27,8 +30,12 @@ class AddQuestion extends Component {
 
 		// TODO: Trigger ADD QUESTION action
 
-		// TODO: Navigate to Deck Details
+		this.toDetails()
 
+	}
+
+	toDetails = () => {
+		this.props.navigation.dispatch(NavigationActions.back('DeckDetails'))
 	}
 
 	render() {
@@ -63,7 +70,7 @@ class AddQuestion extends Component {
 						style={Platform.OS === 'ios' ? [styles.btn, styles.iosBtn] : [styles.btn, styles.androidBtn]}
 						onPress={this.addQuestion}
 						>
-						<Text>Add Question</Text>
+						<Text>Add Card</Text>
 					</TouchableOpacity>
 					
 				</KeyboardAvoidingView>

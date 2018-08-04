@@ -4,17 +4,20 @@ import React, { Component } from 'react'
 // React Native Imports
 import { Text, View, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 
+// React Navigation Imports
+import { NavigationActions } from 'react-navigation'
+
 class DeckDetails extends Component {
 
-	addCard = () => {
+	toAddQuestion = () => {
 
-		// TODO: Navigate to the AddCard component
+		this.props.navigation.navigate('AddQuestion')
 
 	}
 
-	startQuiz = () => {
+	toQuiz = () => {
 
-		// TODO: Navigate to the Quiz component
+		this.props.navigation.navigate('Quiz')
 
 	}
 
@@ -35,14 +38,14 @@ class DeckDetails extends Component {
 				
 					<TouchableOpacity 
 						style={Platform.OS === 'ios' ? styles.ios_btn : styles.android_btn}
-						onPress={this.addCard}
+						onPress={this.toAddQuestion}
 					>
 						<Text style={styles.btn_text}>Add Card</Text>
 					</TouchableOpacity>
 					
 					<TouchableOpacity 
 						style={Platform.OS === 'ios' ? styles.ios_btn : styles.android_btn}
-						onPress={this.startQuiz}
+						onPress={this.toQuiz}
 					>
 						<Text style={styles.btn_text}>Start Quiz</Text>
 					</TouchableOpacity>

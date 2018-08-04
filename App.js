@@ -13,54 +13,50 @@ import { Ionicons } from '@expo/vector-icons'
 // Components
 import DeckList from './components/DeckList'
 import DeckDetails from './components/DeckDetails'
+import Quiz from './components/Quiz'
 import AddDeck from './components/AddDeck'
 import AddQuestion from './components/AddQuestion'
-
-function HeaderButton() {
-
-	toAddDeck = () => {
-
-		// Navigation to Add Deck 
-
-	}
-
-	return (
-		<TouchableOpacity 
-			style={{paddingRight: 15}}
-			onPress={this.toAddDeck}
-		>
-			{
-				Platform.OS === 'ios'
-				? <Ionicons name='ios-add' size={37}/>
-				: <Ionicons name='md-add' size={35}/>
-			}
-		</TouchableOpacity>
-	)
-}
 
 const Navigator = createStackNavigator({
 	Home: {
 		screen: DeckList,
-		navigationOptions: {
-			title: 'Flashcards',
-			headerRight: (
-				<HeaderButton />
-			),
+		navigationOptions: ({ navigation }) => {
+
+			return {
+				title: 'Flashcards',
+				headerRight: (
+					<TouchableOpacity
+						style={{ paddingRight: 15 }}
+						onPress={() => navigation.navigate('AddDeck')}
+					>
+						<Ionicons name='ios-add' size={37} />
+					</TouchableOpacity>
+				)
+			}
 		}
 	},
 	DeckDetails: {
-		screen: DeckDetails
+		screen: DeckDetails,
+		navigationOptions: {
+			title: 'Deck Details'
+		}
+	},
+	Quiz: {
+		screen: Quiz,
+		navigationOptions: {
+			title: 'Quiz'
+		}
 	},
 	AddDeck: {
 		screen: AddDeck,
 		navigationOptions: {
-			title: 'Add Deck'
+			title: 'New Deck'
 		}
 	},
 	AddQuestion: {
 		screen: AddQuestion,
 		navigationOptions: {
-			title: 'Add Question'
+			title: 'New Card'
 		}
 	}
 })

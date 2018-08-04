@@ -4,6 +4,12 @@ import React, { Component } from 'react'
 // React Native Imports 
 import { Text, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 
+// React Navigation Imports
+import { NavigationActions } from 'react-navigation'
+
+// React Icons Import
+import { Ionicons } from '@expo/vector-icons'
+
 // Style Imports
 import { DeckListStyles } from '../utils/styles'
 
@@ -11,7 +17,7 @@ class DeckList extends Component {
 
 	toDeckDetails = () => {
 
-		// TODO: Navigation to Deck Details
+		this.props.navigation.navigate('DeckDetails')
 
 	}
 

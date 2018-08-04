@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 // React Native Imports
 import { Text, View, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 
+// React Navigation Imports
+import { NavigationActions } from 'react-navigation'
+
 class AddDeck extends Component {
 
 	state = {
@@ -22,8 +25,12 @@ class AddDeck extends Component {
 
 		// TODO: Trigger ADD DECK action
 
-		// TOOD: Navigate to Home
+		this.toHome()
 
+	}
+
+	toHome = () => {
+		this.props.navigation.dispatch(NavigationActions.back('Home'))
 	}
 
 	render() {
