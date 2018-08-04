@@ -7,13 +7,17 @@ import { Text, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native
 // React Navigation Imports
 import { NavigationActions } from 'react-navigation'
 
-// React Icons Import
+// React Icons Imports
 import { Ionicons } from '@expo/vector-icons'
 
 // Style Imports
 import { DeckListStyles } from '../utils/styles'
 
 class DeckList extends Component {
+
+	state = {
+		decks: []
+	}
 
 	toDeckDetails = () => {
 
@@ -33,37 +37,16 @@ class DeckList extends Component {
 		)
 	}
 
-	render() {
+	componentDidMount() {
 
-		// Temp Data
-		const decks = [
-			{
-				title: "Test Deck",
-				questions: [
-					{
-		        question: 'What is React?',
-		        answer: 'A library for managing user interfaces'
-		      },
-		      {
-		        question: 'Where do you make Ajax requests in React?',
-		        answer: 'The componentDidMount lifecycle event'
-					}
-				]
-			},
-			{
-				title: "Test Deck Two",
-				questions: [
-					{
-		        question: 'Where do you make Ajax requests in React?',
-		        answer: 'The componentDidMount lifecycle event'
-					}
-				]
-			}]
+	}
+
+	render() {
 
 		return (
 			<View style={styles.container}>
 				<FlatList 
-					data={decks}
+					data={this.state.decks}
 					renderItem={this.renderDeckItem}
 					keyExtractor={(item, index) => item.title}
 				/>
