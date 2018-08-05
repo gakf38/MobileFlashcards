@@ -19,7 +19,8 @@ import { NavigationActions } from 'react-navigation'
 class AddDeck extends Component {
 
 	state = {
-		input: ''
+		input: '',
+		error: false
 	}
 
 	handleTextChange = (input) => {
@@ -32,11 +33,20 @@ class AddDeck extends Component {
 
 	addDeck = () => {
 
-		saveDeckTitle(this.state.input).then(() => {
-			this.props.dispatch(addDeck(this.state.input))
-		})
+		if ( this.state.input )
+		{
+			saveDeckTitle(this.state.input).then(() => {
+				this.props.dispatch(addDeck(this.state.input))
+			})
 
-		this.toHome()
+			this.toHome()
+		}	
+		else
+		{
+			this.setState(() => ({
+				error: true
+			}))
+		}
 	}
 
 	toHome = () => {
@@ -56,6 +66,10 @@ class AddDeck extends Component {
 						underlineColorAndroid='transparent'
 						onChangeText={this.handleTextChange}
 					/>
+
+					{
+						this.state.error && <Text style={{color: 'red'}}>Deck can not be added without a title</Text>
+					}
 
 					<TouchableOpacity 
 						style={Platform.OS === 'ios' ? [styles.btn, styles.iosBtn] : [styles.btn, styles.androidBtn]}

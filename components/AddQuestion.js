@@ -20,7 +20,8 @@ class AddQuestion extends Component {
 
 	state = {
 		questionInput: '',
-		answerInput: ''
+		answerInput: '',
+		error: false
 	}
 
 	handleQuestionTextChange = (questionInput) => {
@@ -37,18 +38,27 @@ class AddQuestion extends Component {
 
 	addQuestion = () => {
 
-		const deckTitle = this.props.title
+		if (this.state.questionInput !== '' && this.state.answerInput !== '') 
+		{
+			const deckTitle = this.props.title
 
-		const newCard = {
-			question: this.state.questionInput,
-			answer: this.state.answerInput
+			const newCard = {
+				question: this.state.questionInput,
+				answer: this.state.answerInput
+			}
+
+			addCardToDeck(deckTitle, newCard).then(() => {
+				this.props.dispatch(addCard(deckTitle, newCard))
+			})
+
+			this.toDetails()
 		}
-
-		addCardToDeck(deckTitle, newCard).then(() => {
-			this.props.dispatch(addCard(deckTitle, newCard))
-		})
-
-		this.toDetails()
+		else
+		{
+			this.setState(() => ({
+				error: true
+			}))
+		}
 
 	}
 
@@ -83,6 +93,8 @@ class AddQuestion extends Component {
 						underlineColorAndroid='transparent'
 						onChangeText={this.handleAnswerTextChange}
 					/>
+
+					{ this.state.error && <Text style={{color: 'red'}}>Card must include a question and an answer</Text> }
 
 					<TouchableOpacity 
 						style={Platform.OS === 'ios' ? [styles.btn, styles.iosBtn] : [styles.btn, styles.androidBtn]}
