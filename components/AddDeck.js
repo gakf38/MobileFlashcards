@@ -4,6 +4,15 @@ import React, { Component } from 'react'
 // React Native Imports
 import { Text, View, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 
+// React Redux Imports
+import { connect } from 'react-redux'
+
+//
+import { addDeck } from '../actions'
+
+//
+import { saveDeckTitle } from '../utils/helpers'
+
 // React Navigation Imports
 import { NavigationActions } from 'react-navigation'
 
@@ -23,10 +32,11 @@ class AddDeck extends Component {
 
 	addDeck = () => {
 
-		// TODO: Trigger ADD DECK action
+		saveDeckTitle(this.state.input).then(() => {
+			this.props.dispatch(addDeck(this.state.input))
+		})
 
 		this.toHome()
-
 	}
 
 	toHome = () => {
@@ -97,4 +107,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default AddDeck
+export default connect()(AddDeck)

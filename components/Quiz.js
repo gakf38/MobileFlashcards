@@ -1,6 +1,9 @@
 // React Imports
 import React, { Component } from 'react'
 
+// React Redux Imports
+import { connect } from 'react-redux'
+
 // React Native Imports
 import { Text, View, StyleSheet } from 'react-native'
 

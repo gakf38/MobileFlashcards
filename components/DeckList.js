@@ -4,6 +4,15 @@ import React, { Component } from 'react'
 // React Native Imports 
 import { Text, View, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 
+// React Redux Imports
+import { connect } from 'react-redux'
+
+// Action Creators Imports
+import { receiveDecks } from '../actions'
+
+// AsyncStorage Helpers Imports
+import { getDecks } from '../utils/helpers'
+
 // React Navigation Imports
 import { NavigationActions } from 'react-navigation'
 
@@ -15,13 +24,9 @@ import { DeckListStyles } from '../utils/styles'
 
 class DeckList extends Component {
 
-	state = {
-		decks: []
-	}
+	toDeckDetails = (title) => {
 
-	toDeckDetails = () => {
-
-		this.props.navigation.navigate('DeckDetails')
+		this.props.navigation.navigate('DeckDetails', { title })
 
 	}
 
@@ -29,7 +34,7 @@ class DeckList extends Component {
 		return (
 			<TouchableOpacity 
 				style={styles.deck}
-				onPress={this.toDeckDetails}
+				onPress={() => this.toDeckDetails(item.title)}
 			>
 				<Text>{item.title}</Text>
 				<Text>{item.questions.length}</Text>
@@ -39,6 +44,10 @@ class DeckList extends Component {
 
 	componentDidMount() {
 
+		getDecks().then((results) => {
+			this.props.dispatch(receiveDecks(results))
+		})
+
 	}
 
 	render() {
@@ -46,7 +55,7 @@ class DeckList extends Component {
 		return (
 			<View style={styles.container}>
 				<FlatList 
-					data={this.state.decks}
+					data={this.props.decks}
 					renderItem={this.renderDeckItem}
 					keyExtractor={(item, index) => item.title}
 				/>
@@ -71,4 +80,11 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default DeckList
+// Map State to Props function
+function mapStateToProps(decks) {
+	return {
+		decks: Object.keys(decks).map((deck) => decks[deck] )
+	}
+}
+
+export default connect(mapStateToProps)(DeckList)

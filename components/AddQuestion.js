@@ -4,20 +4,23 @@ import React, { Component } from 'react'
 // React Native Imports
 import { Text, View, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity, StyleSheet, Platform } from 'react-native'
 
+// React Redux Imports
+import { connect } from 'react-redux'
+
+// Action Creator Imports
+import { addCard } from '../actions'
+
+// AsyncStorage Helpers Imports
+import { addCardToDeck } from '../utils/helpers'
+
 // React Navigation Imports
 import { NavigationActions } from 'react-navigation'
 
 class AddQuestion extends Component {
 
 	state = {
-		titleInput: '',
-		questionInput: ''
-	}
-
-	handleTitleTextChange = (titleInput) => {
-		this.setState(() => ({
-			titleInput
-		}))
+		questionInput: '',
+		answerInput: ''
 	}
 
 	handleQuestionTextChange = (questionInput) => {
@@ -26,9 +29,24 @@ class AddQuestion extends Component {
 		}))
 	}
 
+	handleAnswerTextChange = (answerInput) => {
+		this.setState(() => ({
+			answerInput
+		}))
+	}
+
 	addQuestion = () => {
 
-		// TODO: Trigger ADD QUESTION action
+		const deckTitle = this.props.title
+
+		const newCard = {
+			question: this.state.questionInput,
+			answer: this.state.answerInput
+		}
+
+		addCardToDeck(deckTitle, newCard).then(() => {
+			this.props.dispatch(addCard(deckTitle, newCard))
+		})
 
 		this.toDetails()
 
@@ -45,25 +63,25 @@ class AddQuestion extends Component {
 				<KeyboardAvoidingView behavior='padding' style={styles.subContainer} enabled>
 
 					<View>
-						<Text style={styles.title}>Deck Title</Text>
+						<Text style={styles.title}>{this.props.title}</Text>
 					</View>
-
-					<TextInput 
-						value={this.state.titleInput}
-						style={Platform.OS === 'ios' ? [styles.multilineInput, styles.iosInput] : [styles.multilineInput, styles.androidInput]}
-						multiline={true}
-						placeholder='Add the question here...'
-						underlineColorAndroid='transparent'
-						onChangeText={this.handleTitleTextChange}
-					/>
 
 					<TextInput 
 						value={this.state.questionInput}
 						style={Platform.OS === 'ios' ? [styles.multilineInput, styles.iosInput] : [styles.multilineInput, styles.androidInput]}
 						multiline={true}
-						placeholder='Add the answer here...'
+						placeholder='Add the question here...'
 						underlineColorAndroid='transparent'
 						onChangeText={this.handleQuestionTextChange}
+					/>
+
+					<TextInput 
+						value={this.state.answerInput}
+						style={Platform.OS === 'ios' ? [styles.multilineInput, styles.iosInput] : [styles.multilineInput, styles.androidInput]}
+						multiline={true}
+						placeholder='Add the answer here...'
+						underlineColorAndroid='transparent'
+						onChangeText={this.handleAnswerTextChange}
 					/>
 
 					<TouchableOpacity 
@@ -118,4 +136,10 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default AddQuestion
+function mapStateToProps(state, props) {
+	return {
+		title: props.navigation.state.params.title
+	}
+}
+
+export default connect(mapStateToProps)(AddQuestion)
