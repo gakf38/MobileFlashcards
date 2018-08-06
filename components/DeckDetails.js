@@ -20,7 +20,7 @@ class DeckDetails extends Component {
 
 	toQuiz = () => {
 
-		this.props.navigation.navigate('Quiz')
+		this.props.navigation.navigate('Quiz', {title: this.props.deck.title})
 
 	}
 
