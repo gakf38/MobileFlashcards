@@ -7,10 +7,10 @@ import { Text, View, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpaci
 // React Redux Imports
 import { connect } from 'react-redux'
 
-//
+// Action Creator Imports
 import { addDeck } from '../actions'
 
-//
+// AsyncStorage Helpers Imports
 import { saveDeckTitle } from '../utils/helpers'
 
 // React Navigation Imports
@@ -20,7 +20,8 @@ class AddDeck extends Component {
 
 	state = {
 		input: '',
-		error: false
+		error: false,
+		errorMessage: ''
 	}
 
 	handleTextChange = (input) => {
@@ -35,16 +36,27 @@ class AddDeck extends Component {
 
 		if ( this.state.input )
 		{
-			saveDeckTitle(this.state.input).then(() => {
-				this.props.dispatch(addDeck(this.state.input))
-			})
+			if ( !this.props.decks[this.state.input] )
+			{
+				saveDeckTitle(this.state.input).then(() => {
+					this.props.dispatch(addDeck(this.state.input))
+				})
 
-			this.toHome()
+				this.toHome()
+			}
+			else
+			{
+				this.setState(() => ({
+					error: true,
+					errorMessage: 'This deck already exists'
+				}))
+			}
 		}	
 		else
 		{
 			this.setState(() => ({
-				error: true
+				error: true,
+				errorMessage: 'Deck can not be added without a title'
 			}))
 		}
 	}
@@ -68,7 +80,7 @@ class AddDeck extends Component {
 					/>
 
 					{
-						this.state.error && <Text style={{color: 'red'}}>Deck can not be added without a title</Text>
+						this.state.error && <Text style={{color: 'red'}}>{this.state.errorMessage}</Text>
 					}
 
 					<TouchableOpacity 
@@ -121,4 +133,10 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect()(AddDeck)
+function mapStateToProps(state) {
+	return {
+		decks: state
+	}
+}
+
+export default connect(mapStateToProps)(AddDeck)
