@@ -67,10 +67,11 @@ class AddQuestion extends Component {
 	}
 
 	render() {
+
 		return (
 			<ScrollView contentContainerStyle={styles.container} scrollable={false}>
 
-				<KeyboardAvoidingView behavior='padding' style={styles.subContainer} enabled>
+				<KeyboardAvoidingView style={styles.subContainer} behavior="padding" enabled>
 
 					<View>
 						<Text style={styles.title}>{this.props.title}</Text>
@@ -94,6 +95,7 @@ class AddQuestion extends Component {
 						onChangeText={this.handleAnswerTextChange}
 					/>
 
+					<View>
 					{ this.state.error && <Text style={{color: 'red'}}>Card must include a question and an answer</Text> }
 
 					<TouchableOpacity 
@@ -102,8 +104,10 @@ class AddQuestion extends Component {
 						>
 						<Text>Add Card</Text>
 					</TouchableOpacity>
-					
+					</View>
+
 				</KeyboardAvoidingView>
+
 			</ScrollView>
 		)
 	}
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
 	},
 	subContainer: {
 		flex: 1,
-		justifyContent: 'flex-start',
+		justifyContent: 'space-evenly',
 		alignItems: 'center'
 	},
 	title: {
