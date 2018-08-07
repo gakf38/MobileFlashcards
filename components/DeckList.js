@@ -68,7 +68,8 @@ class DeckList extends Component {
 // Component Styles
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		backgroundColor: 'white'
 	},
 	deck: {
 		flex: 1,

@@ -28,8 +28,6 @@ import AddQuestion from './components/AddQuestion'
 
 	Remaining Todos: 
 
-		3. Incorporate Android specific styling
-
 		5. Review functionality on physical device
 
 */
@@ -46,7 +44,11 @@ const Navigator = createStackNavigator({
 						style={{ paddingRight: 15 }}
 						onPress={() => navigation.navigate('AddDeck')}
 					>
-						<Ionicons name='ios-add' size={37} />
+						{
+							Platform.OS === 'ios'
+							? <Ionicons name='ios-add' size={37} />
+							: <Ionicons name='md-add' size={37} />
+						}
 					</TouchableOpacity>
 				)
 			}

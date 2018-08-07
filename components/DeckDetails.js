@@ -39,7 +39,10 @@ class DeckDetails extends Component {
 				]
 			)
 		}
+	}
 
+	toHome = () => {
+		this.props.navigation.dispatch(NavigationActions.back('Home'))
 	}
 
 	render() {
@@ -73,12 +76,6 @@ class DeckDetails extends Component {
 						<Text style={styles.btn_text}>Start Quiz</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity 
-						style={Platform.OS === 'ios' ? [styles.remove_btn, styles.ios_btn] : [styles.remove_btn, styles.android_btn]}
-					>
-						<Text style={[styles.remove_text, styles.btn_text]}>Remove Quiz</Text>
-					</TouchableOpacity>
-
 				</View>
 
 			</View>
@@ -89,6 +86,7 @@ class DeckDetails extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: 'white',
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
 		padding: 20
@@ -108,15 +106,9 @@ const styles = StyleSheet.create({
 		padding: 10,
 		margin: 10
 	},
-	remove_btn: {
-		borderColor: 'red'
-	},
 	btn_text: {
 		textAlign: 'center',
 		fontSize: 22
-	},
-	remove_text: {
-		color: 'red'
 	}
 })
 
@@ -125,7 +117,8 @@ function mapStateToProps(state, props) {
 	const currentDeck = props.navigation.state.params.title
 
 	return {
-		deck: currentDeck ? state[currentDeck] : {}
+		deck: currentDeck ? state[currentDeck] : {},
+		title: currentDeck ? currentDeck : null
 	}
 
 }

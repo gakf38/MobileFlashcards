@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 // React Native Imports
-import { Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native'
 
 // React Redux Imports
 import { connect } from 'react-redux'
@@ -77,7 +77,9 @@ class Quiz extends Component {
 					</View>
 
 					<TouchableOpacity
-						style={styles.reset_btn}
+						style={[styles.reset_btn, 
+							Platform.OS === 'ios' ? styles.iosBtn : styles.androidBtn
+						]}
 						onPress={this.resetQuiz}
 					>
 						<Text style={styles.reset_text}>Restart Quiz</Text>
@@ -131,14 +133,22 @@ class Quiz extends Component {
 						style={[styles.question_btn, {borderColor: 'green'}]}
 						onPress={this.handleCorrectQuestion}
 					>
-						<Ionicons name='ios-checkmark-circle-outline' size={66} style={styles.correct} />
+						{
+							Platform.OS === 'ios'
+							? <Ionicons name='ios-checkmark-circle-outline' size={66} style={styles.correct} />
+							: <Ionicons name='md-checkmark-circle-outline' size={66} style={styles.correct} />
+						}
 					</TouchableOpacity>
 
 					<TouchableOpacity 
 						style={[styles.question_btn, {borderColor: 'red'}]}
 						onPress={this.handleIncorrectQuestion}
 					>
-						<Ionicons name='ios-close-circle-outline' size={66} style={styles.incorrect} />
+						{
+							Platform.OS === 'ios'
+							? <Ionicons name='ios-close-circle-outline' size={66} style={styles.incorrect} />
+							: <Ionicons name='md-close' size={66} style={styles.incorrect} />
+						}
 					</TouchableOpacity>
 
 				</View>
@@ -157,6 +167,7 @@ const styles = StyleSheet.create({
 	},
 	resultsContainer: {
 		flex: 1,
+		backgroundColor: 'white',
 		justifyContent: 'space-around',
 		alignItems: 'center',
 		padding: 20
@@ -204,7 +215,13 @@ const styles = StyleSheet.create({
 	},
 	reset_text: {
 		fontSize: 22
-	}
+	},
+	iosBtn: {
+		borderRadius: 7,
+	},
+	androidBtn: {
+		borderRadius: 2,
+	},
 })
 
 function mapStateToProps(state, props) {
