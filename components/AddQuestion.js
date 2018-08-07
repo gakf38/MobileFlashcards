@@ -71,7 +71,7 @@ class AddQuestion extends Component {
 		return (
 			<ScrollView contentContainerStyle={styles.container} scrollable={false}>
 
-				<KeyboardAvoidingView style={styles.subContainer} keyboardVerticalOffset={75} behavior="padding" enabled>
+				<KeyboardAvoidingView style={styles.subContainer} keyboardVerticalOffset={Platform.OS === 'ios' && 75} behavior="padding" enabled>
 
 					<View>
 						<Text style={styles.title}>{this.props.title}</Text>
