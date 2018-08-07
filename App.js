@@ -24,6 +24,16 @@ import Quiz from './components/Quiz'
 import AddDeck from './components/AddDeck'
 import AddQuestion from './components/AddQuestion'
 
+/*
+
+	Remaining Todos: 
+
+		3. Incorporate Android specific styling
+
+		5. Review functionality on physical device
+
+*/
+
 const Navigator = createStackNavigator({
 	Home: {
 		screen: DeckList,
@@ -44,9 +54,6 @@ const Navigator = createStackNavigator({
 	},
 	DeckDetails: {
 		screen: DeckDetails,
-		navigationOptions: {
-			title: 'Deck Details'
-		}
 	},
 	Quiz: {
 		screen: Quiz,

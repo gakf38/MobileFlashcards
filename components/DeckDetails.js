@@ -12,6 +12,10 @@ import { NavigationActions } from 'react-navigation'
 
 class DeckDetails extends Component {
 
+	static navigationOptions = ({ navigation }) => ({
+		title: `${navigation.state.params.title}`
+	})
+
 	toAddQuestion = () => {
 
 		this.props.navigation.navigate('AddQuestion', {title: this.props.deck.title})
