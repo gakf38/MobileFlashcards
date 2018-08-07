@@ -1,5 +1,5 @@
 ## MobileFlashcards
-This application is a native application that supports use on both iOS and Android devices. The application allows for users to create and study decks of flashcards. The user can view all their created decks in a scrollable view, add new flashcards to their existings decks and complete quizzes of the decks. Upon completion of a quiz this user will get immediate feedback letting them know how they did.
+This application is a native application that supports use on both `iOS` and `Android` devices. The application allows for users to create and study decks of flashcards. The user can view all their created decks in a scrollable view, add new flashcards to their existings decks and complete quizzes of the decks. Upon completion of a quiz this user will get immediate feedback letting them know how they did.
 
 ### Steps to install
 1. Download this repository

@@ -71,7 +71,7 @@ class AddQuestion extends Component {
 		return (
 			<ScrollView contentContainerStyle={styles.container} scrollable={false}>
 
-				<KeyboardAvoidingView style={styles.subContainer} behavior="padding" enabled>
+				<KeyboardAvoidingView style={styles.subContainer} keyboardVerticalOffset={75} behavior="padding" enabled>
 
 					<View>
 						<Text style={styles.title}>{this.props.title}</Text>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 	},
 	subContainer: {
 		flex: 1,
-		justifyContent: 'space-evenly',
+		justifyContent: 'space-around',
 		alignItems: 'center'
 	},
 	title: {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 		width: 300,
 		height: 132,
 		padding: 8,
-		margin: 25,
+		margin: 10,
 		borderWidth: 1
 	},
 	iosInput: {
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
 	},
 	btn: {
 		padding: 10,
-		margin: 25,
+		marginBottom: 25,
 		borderWidth: 1
 	},
 	iosBtn: {
