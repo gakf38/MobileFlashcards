@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 // React Native Imports
-import { Text, View, TouchableOpacity, StyleSheet, Platform } from 'react-native'
+import { Text, View, TouchableOpacity, Alert, StyleSheet, Platform } from 'react-native'
 
 // React Redux Imports
 import { connect } from 'react-redux'
@@ -20,7 +20,21 @@ class DeckDetails extends Component {
 
 	toQuiz = () => {
 
-		this.props.navigation.navigate('Quiz', {title: this.props.deck.title})
+		if (this.props.deck.questions.length > 0)
+		{
+			this.props.navigation.navigate('Quiz', {title: this.props.deck.title})
+		}
+		else
+		{
+			Alert.alert(
+				'No Cards!',
+				'This deck currently no cards', 
+				[
+					{ text: 'Add Card', onPress: this.toAddQuestion },
+					{ text: 'Cancel' }
+				]
+			)
+		}
 
 	}
 
