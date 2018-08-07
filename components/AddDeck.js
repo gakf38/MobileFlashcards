@@ -40,9 +40,9 @@ class AddDeck extends Component {
 			{
 				saveDeckTitle(this.state.input).then(() => {
 					this.props.dispatch(addDeck(this.state.input))
+					this.toNewDeck(this.state.input)
 				})
 
-				this.toHome()
 			}
 			else
 			{
@@ -61,8 +61,10 @@ class AddDeck extends Component {
 		}
 	}
 
-	toHome = () => {
-		this.props.navigation.dispatch(NavigationActions.back('Home'))
+	toNewDeck = (title) => {
+
+		this.props.navigation.navigate('DeckDetails', { title })
+
 	}
 
 	render() {
