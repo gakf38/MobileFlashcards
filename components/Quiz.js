@@ -7,6 +7,9 @@ import { Text, View, TouchableOpacity, StyleSheet, Platform, Dimensions } from '
 // React Redux Imports
 import { connect } from 'react-redux'
 
+// AsyncStorage Imports
+import { clearNotification, setNotification } from '../utils/helpers'
+
 // React Icons Imports
 import { Ionicons } from '@expo/vector-icons'
 
@@ -23,11 +26,17 @@ class Quiz extends Component {
 
 		this.props.deck.questions.push(this.props.deck.questions.shift())
 
+		const newAnswered = this.state.answered + 1
+
 		this.setState(() => ({
-			answered: this.state.answered + 1,
+			answered: newAnswered,
 			correct: this.state.correct + 1
 		}))
 
+		if ( newAnswered === this.props.questionCount )
+		{
+			clearNotification().then(setNotification)
+		}
 	}
 
 	handleIncorrectQuestion = () => {
@@ -38,6 +47,10 @@ class Quiz extends Component {
 			answered: this.state.answered + 1
 		}))
 
+		if ( newAnswered === this.props.questionCount )
+		{
+			clearNotification().then(setNotification)
+		}
 	}
 
 	resetQuiz = () => {

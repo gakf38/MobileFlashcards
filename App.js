@@ -8,6 +8,9 @@ import { Text, View, TouchableOpacity, Platform } from 'react-native';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
+// AsyncStorage Imports
+import { setNotification } from './utils/helpers'
+
 // React Navigation Imports
 import { createStackNavigator } from 'react-navigation'
 
@@ -23,14 +26,6 @@ import DeckDetails from './components/DeckDetails'
 import Quiz from './components/Quiz'
 import AddDeck from './components/AddDeck'
 import AddQuestion from './components/AddQuestion'
-
-/*
-
-	Remaining Todos: 
-
-		5. Review functionality on physical device
-
-*/
 
 const Navigator = createStackNavigator({
 	Home: {
@@ -78,6 +73,9 @@ const Navigator = createStackNavigator({
 })
 
 export default class App extends React.Component {
+	componentDidMount() {
+    setNotification()
+  }
   render() {
     return (
     	<Provider store={createStore(reducer)}>
